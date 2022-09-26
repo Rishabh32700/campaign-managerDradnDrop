@@ -39,7 +39,7 @@ if (data[0].ivrCampFlowData.flow.language[0].actions.length !== 0) {
   console.log("zero");
 }
 
-if(data[0].ivrCampFlowData.flow.actions[0].length !== 0){
+if(data[0].ivrCampFlowData.flow.actions.length !== 0){
   data[0].ivrCampFlowData.flow.actions.forEach((element, idx)=>{
     initialNodes.push({
       id: element.level+"_"+element.dtmf_key+"_"+idx,
@@ -48,15 +48,15 @@ if(data[0].ivrCampFlowData.flow.actions[0].length !== 0){
       position: { x: (idx+1)*120, y:(idx+1)*40  },
     });
     console.log("dtmf ", element);
-    if(data[0].ivrCampFlowData.flow.actions[0].actions.length !== 0){
-      data[0].ivrCampFlowData.flow.actions[0].actions.forEach((element, idx)=>{
+    if(element.actions.length !== 0){
+      element.actions.forEach((element, idx)=>{
         initialNodes.push({
-          id: element.level+"_"+element.dtmf_key+"_"+idx,
+          id: element.level+"_"+element.dtmf_key+"_"+idx+Math.random(),
           type: "processing",
           data: { label:"DTMF"+ element.id },
           position: { x: (idx+1)*160, y:(idx+1)*80  },
         });
-        console.log("subdtmf ", element);
+        console.log("subdtmf ", element, initialNodes);
       
       })
       console.log("action length not zero");
@@ -69,9 +69,6 @@ if(data[0].ivrCampFlowData.flow.actions[0].length !== 0){
 }else {
   console.log("action zero");
 }
-
-
-
 
 
 const flowKey = "flowJSON";
