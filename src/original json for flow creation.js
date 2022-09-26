@@ -405,7 +405,7 @@ const data = [
                   ivr: "",
                   sms: "",
                 },
-                id: "2_1",
+                id: "3_1",
                 repeat: {
                   value: false,
                   dtmf: 0,
@@ -415,7 +415,7 @@ const data = [
               },
             ],
             action_tag: "",
-            id: 2,
+            id: 3,
             repeat: {
               value: false,
               dtmf: 0,
