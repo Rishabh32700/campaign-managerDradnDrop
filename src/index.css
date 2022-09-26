@@ -1,0 +1,191 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.sidebar{
+  border-left: 1px solid grey;
+  z-index: 1001;
+}
+
+.dndflow {
+  flex-direction: column;
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.dndflow aside {
+  border-right: 1px solid #eee;
+  padding: 15px 10px;
+  font-size: 12px;
+  background: #fcfcfc;
+}
+
+.dndflow aside .description {
+  margin-bottom: 10px;
+}
+
+.dndflow .dndnode {
+  height: 20px;
+  padding: 4px;
+  border: 1px solid #1a192b;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.dndflow .dndnode.input,
+.react-flow__node-input {
+  border-color: #0041d0 !important;
+}
+
+.react-flow__node-input,
+.react-flow__node-output,
+.react-flow__node-default {
+  width: 110px !important;
+  padding: 5px !important;
+  font-size: .5rem !important;
+}
+
+.dndflow .dndnode.output,
+.react-flow__node-output {
+  border-color: #ff0072 !important;
+  backdrop-filter: blur(10px);
+}
+
+.react-flow__node-output.selectable.selected{
+  box-shadow: 1px 1px 3px .5px #ff0072 !important;
+}
+
+.react-flow__node-input.selectable.selected{
+  box-shadow: 1px 1px 3px .5px #0041d0 !important;
+
+}
+
+.dndflow .reactflow-wrapper {
+  flex-grow: 1;
+  height: 100vh;
+  background-image: linear-gradient(to top right, skyblue, white, transparent);
+}
+
+.dndflow .selectall {
+  margin-top: 10px;
+}
+
+.react-flow__attribution.right{
+  display: none !important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list{
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.language__audio__file__upload__button{
+  margin-top: 1rem !important;
+  display: flex !important;
+  padding: .5rem 0 !important;
+}
+
+.flow__info{
+  width: 150px;
+  height: 50px;
+  border-radius: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+   border: 2px solid red;
+  font-weight: 900;
+}
+
+.flow__info:hover{
+  cursor: pointer;
+  transition: ease-in-out .5s;
+  transform: scale(1.2);
+}
+
+.flow__info__open__modal__button{
+    position: absolute !important;
+    top: 10px !important;
+    /* left: -100px !important; */
+    z-index: 1000 !important;
+    border: 2px solid red !important;
+    width: 150px;
+    /* border-radius: 50% !important; */
+    box-shadow: 1px 1px 3px grey !important;
+    height: 100px;
+    font-weight: 800 !important;
+    /* transition: transform 5.5s;
+    transform-style: preserve-3d; */
+    animation-name: animate;
+    animation-duration: 5s;
+  }
+  
+  @keyframes animate {
+    0%{
+      left: -100px !important;
+    }
+    100%{
+      left : 0px !important;
+    }
+    
+  }
+  
+  .flow__info__open__modal__button:hover{
+    /* transition: all 1.5s; */
+    cursor: pointer;
+
+    
+}
+
+.flowInfoSubmitButton{
+  margin-top: 1rem !important;
+  width: 100px !important;
+}
+
+.button1{
+  position: fixed !important;
+  bottom: 150px !important;
+  left: 10px !important;
+  z-index: 2000 !important;
+}
+
+.button2{
+  position: fixed !important;
+  bottom: 180px !important;
+  left: 10px !important;
+  z-index: 2000 !important; 
+}
+
+.save__controls__buttons:hover{
+  cursor: pointer;
+}
+
+
+@media screen and (min-width: 768px) {
+  .dndflow {
+    flex-direction: row;
+  }
+
+  .dndflow aside {
+    width: 20%;
+    max-width: 250px;
+  }
+}

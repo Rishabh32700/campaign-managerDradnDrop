@@ -1,0 +1,6 @@
+export const START_NODE_LABEL = 'Start'
+export const WELCOME_NODE_LABEL = 'Welcome'
+export const PROCESSING_NODE_LABEL = 'Processing'
+export const LANGUAGE_SELECTION_NODE_LABEL = 'Language'
+export const STOP_NODE_LABEL = 'Thank you'
+export const FLOW_INFO = 'Flow Info'
