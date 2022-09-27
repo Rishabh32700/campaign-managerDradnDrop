@@ -4,8 +4,8 @@ const position = { x: 0, y: 0 };
 const edgeType = 'smoothstep';
 
 
-const createNodes = () =>{
-    const initialNodes = [
+const createNodesAndEdges = () =>{
+    let initialNodes = [
         {
           id: "0",
           type: "input",
@@ -13,17 +13,22 @@ const createNodes = () =>{
           position
         },
       ];
+      let initialEdges = []
       
       if (data[0].ivrCampFlowData.flow.language[0].actions.length !== 0) {
         data[0].ivrCampFlowData.flow.language[0].actions.forEach((element, idx) => {
           console.log("ele", element, idx);
-          initialNodes.push({
+          initialNodes = [...initialNodes, {
             id: element.id+"_"+idx,
             type: "processing",
             data: { label: element.languageName + "language node"},
             position
-          });
+          }];
+            initialEdges = [...initialEdges,   { id: 'e0'+element.id+"_"+idx, source: '0', target: element.id+"_"+idx, type: edgeType}]    
           console.log("initial", initialNodes);
+          data[0].ivrCampFlowData.flow.actions.forEach((ele, index)=>{
+                initialEdges = [...initialEdges,  {id: 'e'+element.id+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index, source: element.id+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index, type: edgeType}]
+          })
         });
       } else {
         console.log("zero");
@@ -31,24 +36,32 @@ const createNodes = () =>{
       
       if(data[0].ivrCampFlowData.flow.actions.length !== 0){
         data[0].ivrCampFlowData.flow.actions.forEach((element, idx)=>{
-          initialNodes.push({
+            initialNodes =  [...initialNodes, {
             id: element.level+"_"+element.dtmf_key+"_"+idx,
             type: "processing",
             data: { label:"DTMF"+ element.dtmf_key },
             position
-          });
-          console.log("dtmf ", element);
+          }];
+          
           if(element.actions.length !== 0){
-            element.actions.forEach((element, idx)=>{
-              initialNodes.push({
-                id: element.level+"_"+element.dtmf_key+"_"+idx+Math.random(),
+            element.actions.forEach((ele, index)=>{
+                let randomness = Math.random()
+                initialNodes = [...initialNodes, {
+                id: ele.level+"_"+ele.dtmf_key+"_"+index+randomness,
                 type: "processing",
-                data: { label:"DTMF"+ element.id },
+                data: { label:"DTMF"+ ele.id },
                 position
-              });
-              console.log("subdtmf ", element, initialNodes);
-            
+            }];
+            initialEdges = [...initialEdges,  {id: 'e'+element.level+"_"+element.dtmf_key+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index+randomness, source: element.level+"_"+element.dtmf_key+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index+randomness, type: edgeType}]
+            console.log("subdtmf ", ele, initialNodes);
+            console.log('nitin node', {
+                id: ele.level+"_"+ele.dtmf_key+"_"+index+randomness,
+                type: "processing",
+                data: { label:"DTMF"+ ele.id },
+                position
             })
+            console.log('nitin edge', {id: 'e'+element.level+"_"+element.dtmf_key+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index+randomness, source: element.level+"_"+element.dtmf_key+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index+randomness, type: edgeType})
+        })
             console.log("action length not zero");
           }else {
             console.log("action zero");
@@ -60,27 +73,11 @@ const createNodes = () =>{
         console.log("action zero");
       }
 
-return initialNodes
+return {initialNodes, initialEdges}
 }
 
 
-export const initialNodes = createNodes()
+export const {initialNodes, initialEdges} = createNodesAndEdges()
 
-console.log('Nitin', initialNodes)
-  
-
-
-
-export const initialEdges = [
-    { id: 'e12', source: '1', target: '2', type: edgeType },
-    { id: 'e13', source: '1', target: '3', type: edgeType },
-    { id: 'e22a', source: '2', target: '2a', type: edgeType },
-    { id: 'e22b', source: '2', target: '2b', type: edgeType },
-    { id: 'e22c', source: '2', target: '2c', type: edgeType },
-    { id: 'e2c2d', source: '2c', target: '2d', type: edgeType },
-    { id: 'e45', source: '4', target: '5', type: edgeType },
-    { id: 'e56', source: '5', target: '6', type: edgeType },
-    { id: 'e57', source: '5', target: '7', type: edgeType },
-    { id: '2d8', source: '2d', target: '8', type: edgeType }
-  ];
+console.log('nitin listx', initialEdges, initialNodes)
   
