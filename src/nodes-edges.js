@@ -30,10 +30,23 @@ const createNodesAndEdges = () =>{
                 initialEdges = [...initialEdges,  {id: 'e'+element.id+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index, source: element.id+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index, type: edgeType}]
           })
         });
-      } else {
-        console.log("zero");
       }
-      
+
+      const recursiveFunc = (element, idx, proprandom) =>{
+        element.actions.forEach((ele, index)=>{
+          let randomness = Math.random()
+          initialNodes = [...initialNodes, {
+          id: ele.level+"_"+ele.dtmf_key+"_"+index+randomness,
+          type: "processing",
+          data: { label:"DTMF"+ ele.id },
+          position
+      }];
+      initialEdges = [...initialEdges,  {id: 'e'+element.level+"_"+element.dtmf_key+"_"+idx+proprandom+ele.level+"_"+ele.dtmf_key+"_"+index+randomness, source: element.level+"_"+element.dtmf_key+"_"+idx+proprandom, target: ele.level+"_"+ele.dtmf_key+"_"+index+randomness, type: edgeType}]
+      if(ele.actions.length){
+        recursiveFunc(ele, index, randomness)
+      }
+
+    })}
       if(data[0].ivrCampFlowData.flow.actions.length !== 0){
         data[0].ivrCampFlowData.flow.actions.forEach((element, idx)=>{
             initialNodes =  [...initialNodes, {
@@ -42,36 +55,12 @@ const createNodesAndEdges = () =>{
             data: { label:"DTMF"+ element.dtmf_key },
             position
           }];
-          
-          if(element.actions.length !== 0){
-            element.actions.forEach((ele, index)=>{
-                let randomness = Math.random()
-                initialNodes = [...initialNodes, {
-                id: ele.level+"_"+ele.dtmf_key+"_"+index+randomness,
-                type: "processing",
-                data: { label:"DTMF"+ ele.id },
-                position
-            }];
-            initialEdges = [...initialEdges,  {id: 'e'+element.level+"_"+element.dtmf_key+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index+randomness, source: element.level+"_"+element.dtmf_key+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index+randomness, type: edgeType}]
-            console.log("subdtmf ", ele, initialNodes);
-            console.log('nitin node', {
-                id: ele.level+"_"+ele.dtmf_key+"_"+index+randomness,
-                type: "processing",
-                data: { label:"DTMF"+ ele.id },
-                position
-            })
-            console.log('nitin edge', {id: 'e'+element.level+"_"+element.dtmf_key+"_"+idx+ele.level+"_"+ele.dtmf_key+"_"+index+randomness, source: element.level+"_"+element.dtmf_key+"_"+idx, target: ele.level+"_"+ele.dtmf_key+"_"+index+randomness, type: edgeType})
-        })
-            console.log("action length not zero");
-          }else {
-            console.log("action zero");
-          }
+        if(element.actions.length){
+          recursiveFunc(element, idx, '')
+        }
+    })
+        }
         
-        })
-        console.log("action length not zero");
-      }else {
-        console.log("action zero");
-      }
 
 return {initialNodes, initialEdges}
 }

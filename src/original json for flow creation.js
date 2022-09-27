@@ -383,7 +383,45 @@ const data = [
                 waitTime: "8",
                 url: "",
                 dtmf_count: 0,
-                actions: [],
+                actions: [{
+                  dtmf_key: 1,
+                  audio_file: {},
+                  parent_dtmf: 2,
+                  type: "PLAY",
+                  level: 3,
+                  waitTime: "8",
+                  url: "",
+                  dtmf_count: 0,
+                  actions: [],
+                  action_tag: "",
+                  sms: "",
+                  file: {
+                    ivr: {
+                      _H: "",
+                      _E: "",
+                    },
+                    sms: {
+                      _H: "",
+                      _E: "",
+                    },
+                  },
+                  node_type: "PROCESSING",
+                  input: {
+                    ivr_key: 1,
+                    sms_key: "",
+                  },
+                  actionType: {
+                    ivr: "",
+                    sms: "",
+                  },
+                  id: "3_1",
+                  repeat: {
+                    value: false,
+                    dtmf: 0,
+                    audio_file: [],
+                    max_count: 0,
+                  },
+                },],
                 action_tag: "",
                 sms: "",
                 file: {
